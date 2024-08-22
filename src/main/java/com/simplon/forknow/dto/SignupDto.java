@@ -1,15 +1,19 @@
 package com.simplon.forknow.dto;
 
+import com.simplon.forknow.model.UtilisateurRole;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotEmpty;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
+
+import java.util.Date;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class SignupDto {
     @NotEmpty(message = "Username doit être renseigné")
     private String username;
@@ -22,4 +26,7 @@ public class SignupDto {
 
     @NotEmpty(message = "PasswordConfirm doit être renseigné")
     private String passwordConfirm;
+
+    @NotEmpty(message = "Votre status doit être renseigné")
+    private UtilisateurRole role;
 }

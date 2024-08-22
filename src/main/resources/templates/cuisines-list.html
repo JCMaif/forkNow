@@ -1,0 +1,25 @@
+<th:block th:replace="~{ base :: layout('Cuisines', ~{::content}, ~{::link}) }">
+    <link rel="stylesheet" th:href="@{/css/styles.css}" href="../static/css/styles.css" th:fragment="link" />
+
+    <section th:fragment="content">
+
+        <section class="container">
+            <table>
+                <tr>
+                    <th>Type</th>
+                    <th>Actions</th>
+                    <th><button>Ajouter</button></th>
+                </tr>
+                <tr th:each="cuisine : ${cuisines}">
+                    <td th:text="${cuisine.type}">type</td>
+                    <td>
+                        <!-- Affiche le bouton "Delete" uniquement si l'utilisateur est ADMIN -->
+                        <button th:if="${currentUser != null and currentUser.role == T(com.simplon.forknow.model.UtilisateurRole).ADMIN}">
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        </section>
+    </section>
+</th:block>

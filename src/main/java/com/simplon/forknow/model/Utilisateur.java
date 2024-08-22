@@ -23,7 +23,7 @@ public class Utilisateur {
 
     private String display_name;
 
-    @NonNull
+    @Column(unique = true, nullable = false)
     private String email;
 
     private String password;

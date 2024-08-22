@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.Optional;
 
 @Service
@@ -44,9 +45,9 @@ public class UtilisateurServiceImpl implements UtilisateurService {
                 .email(user.getEmail())
                 .password(passwordEncoder.encode(user.getPassword()))
                 .role(UtilisateurRole.CUSTOMER)
+                .creation_date(new Date())
                 .build();
         utilisateurRepository.save(userEntity);
-
     }
 
     @Override
