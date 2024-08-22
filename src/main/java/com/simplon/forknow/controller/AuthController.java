@@ -29,8 +29,4 @@ public class AuthController {
         return "index";
     }
 
-    @GetMapping("/admin")
-    public String admin() {
-        return "admin";
-    }
 }

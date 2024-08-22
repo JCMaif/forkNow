@@ -45,13 +45,14 @@ public class SpringSecurity {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/").permitAll()
                         .requestMatchers("/login").permitAll()
-                        .requestMatchers("/signup").permitAll()
+                        .requestMatchers("/signup/**").permitAll()
                         .requestMatchers("/admin").hasRole("ADMIN")
                         .requestMatchers("/css/**", "/favicon.ico", "/img/**").permitAll()
                 )
                 .formLogin(login -> login
                         //.loginPage("/login")
-                        .defaultSuccessUrl("/restaurants-list", true)
+                        .loginProcessingUrl("/login")
+                        .defaultSuccessUrl("/", true)
                         .permitAll()
                 )
                 .logout(logout -> logout

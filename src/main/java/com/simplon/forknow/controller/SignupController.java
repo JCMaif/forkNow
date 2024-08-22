@@ -28,7 +28,7 @@ public class SignupController {
 
     @PostMapping("/signup/save")
     public String signupUser(@Valid @ModelAttribute SignupDto userMapping) {
-
+        System.out.println("Ok");
         if (!userMapping.getPassword().equals(userMapping.getPasswordConfirm())) {
             return "redirect:/signup?error";
         }
