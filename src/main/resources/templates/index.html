@@ -1,0 +1,16 @@
+<th:block th:replace="~{ base :: layout('Welcome', ~{::content}, ~{::link}) }">
+    <link rel="stylesheet" th:href="@{/css/styles.css}" href="../static/css/styles.css" th:fragment="link" />
+
+    <section th:fragment="content">
+        <section class="hero" id="home">
+            <div class="hero-text">
+                <h1>Delicious Food, Delivered to You</h1>
+                <p>Order your favorite meals and have them delivered right to your doorstep with ForkNow.</p>
+                <a href="restaurants-list.html"><button class="cta-button">Order Now</button></a>
+            </div>
+            <div class="hero-image">
+                <img src="/img/ForkNow_hero.png" alt="Happy delivery person with food">
+            </div>
+        </section>
+    </section>
+</th:block>

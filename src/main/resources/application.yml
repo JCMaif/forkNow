@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: spring-security
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/fork_now?currentSchema=public
+    username: postgres
+    password: postgres
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+    defer-datasource-initialization: true
+  sql:
+    init:
+      data-locations: "classpath*:data.sql"
+      mode: always

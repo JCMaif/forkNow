@@ -1,0 +1,52 @@
+<th:block th:replace="~{ base :: layout('Nearby Restaurants', ~{::content}, ~{::link}) }">
+    <link rel="stylesheet" th:href="@{/css/styles-restaurant.css}" href="../static/css/styles-restaurant.css" th:fragment="link" />
+
+    <section th:fragment="content">
+        <div class="container">
+            <h1>Nearby Restaurants</h1>
+
+            <div class="restaurant-grid">
+                <div class="restaurant-card">
+                    <img src="/api/placeholder/300/200" alt="Restaurant 1" class="restaurant-image">
+                    <div class="restaurant-info">
+                        <h2 class="restaurant-name">Tasty Bites</h2>
+                        <p class="restaurant-cuisine">American, Burgers</p>
+                        <div class="restaurant-rating">
+                            <span class="star">★★★★☆</span>
+                            <span>4.5 (200+ reviews)</span>
+                        </div>
+                        <a href="#" class="order-button">Order Now</a>
+                    </div>
+                </div>
+
+                <div class="restaurant-card">
+                    <img src="/api/placeholder/300/200" alt="Restaurant 2" class="restaurant-image">
+                    <div class="restaurant-info">
+                        <h2 class="restaurant-name">Sushi Haven</h2>
+                        <p class="restaurant-cuisine">Japanese, Sushi</p>
+                        <div class="restaurant-rating">
+                            <span class="star">★★★★★</span>
+                            <span>4.8 (150+ reviews)</span>
+                        </div>
+                        <a href="#" class="order-button">Order Now</a>
+                    </div>
+                </div>
+
+                <div class="restaurant-card">
+                    <img src="/api/placeholder/300/200" alt="Restaurant 3" class="restaurant-image">
+                    <div class="restaurant-info">
+                        <h2 class="restaurant-name">Pizza Paradise</h2>
+                        <p class="restaurant-cuisine">Italian, Pizza</p>
+                        <div class="restaurant-rating">
+                            <span class="star">★★★★☆</span>
+                            <span>4.2 (180+ reviews)</span>
+                        </div>
+                        <a href="#" class="order-button">Order Now</a>
+                    </div>
+                </div>
+
+                <!-- Add more restaurant cards as needed -->
+            </div>
+        </div>
+    </section>
+</th:block>
