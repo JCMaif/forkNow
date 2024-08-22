@@ -2,6 +2,7 @@
     <link rel="stylesheet" th:href="@{/css/styles.css}" href="../static/css/styles.css" th:fragment="link" />
 
     <section th:fragment="content">
+        <p th:if="${currentUser}" th:text="|Bonjour ${currentUser.username}|">Bonjour username</p>
         <section class="hero" id="home">
             <div class="hero-text">
                 <h1>Delicious Food, Delivered to You</h1>

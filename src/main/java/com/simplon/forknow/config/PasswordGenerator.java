@@ -10,7 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class PasswordGenerator {
     public static void main(String[] args) {
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String customerPassword = passwordEncoder.encode("custormer");
+        String customerPassword = passwordEncoder.encode("customer");
         String adminPassword = passwordEncoder.encode("admin");
 
         System.out.println("Customer password : " + customerPassword);

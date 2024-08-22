@@ -50,9 +50,9 @@ public class SpringSecurity {
                         .requestMatchers("/css/**", "/favicon.ico", "/img/**").permitAll()
                 )
                 .formLogin(login -> login
-                        //.loginPage("/login")
+                        .loginPage("/login")
                         .loginProcessingUrl("/login")
-                        .defaultSuccessUrl("/", true)
+                        .defaultSuccessUrl("/restaurants-list", true)
                         .permitAll()
                 )
                 .logout(logout -> logout
