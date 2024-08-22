@@ -1,14 +1,18 @@
 package com.simplon.forknow.controller;
 
 import com.simplon.forknow.dto.SignupDto;
+import com.simplon.forknow.model.Utilisateur;
 import com.simplon.forknow.service.UtilisateurService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.Optional;
 
 @Controller
 public class SignupController {
@@ -20,9 +24,10 @@ public class SignupController {
     }
 
     @GetMapping("/signup")
-    public String signup(Model model) {
-        SignupDto user = new SignupDto();
-        model.addAttribute("utilisateur", user);
+    public String signup(Model model, Authentication authentication) {
+        // Ajoute l'utilisateur au modèle pour le menu de navigation
+        Optional<Utilisateur> utilisateur = utilisateurService.from(authentication);
+        model.addAttribute("currentUser", utilisateur.orElse(null));
         return "signup";
     }
 

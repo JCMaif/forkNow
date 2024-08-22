@@ -1,6 +1,7 @@
 package com.simplon.forknow.controller;
 
 import com.simplon.forknow.dto.LoginDto;
+import com.simplon.forknow.model.Utilisateur;
 import com.simplon.forknow.service.UtilisateurService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.Optional;
 
 @Controller
 public class LoginController {
@@ -27,23 +30,14 @@ public class LoginController {
     }
 
     @GetMapping("/login")
-    public String login(Model model) {
-        model.addAttribute("LoginDto", new LoginDto());
+    public String login(Model model, Authentication authentication) {
+        // Ajoute l'utilisateur au modèle pour le menu de navigation
+        Optional<Utilisateur> utilisateur = utilisateurService.from(authentication);
+        if(utilisateur.isPresent()) {
+            model.addAttribute("currentUser", utilisateur.orElse(null));
+        }
         return "login";
     }
 
-//    @PostMapping("/login")
-//    public String authenticateUser(@Valid @ModelAttribute("LoginDto") LoginDto loginDto, Model model) {
-//        try {
-//            Authentication authentication = authenticationManager.authenticate(
-//                    new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword())
-//            );
-//
-//            return "redirect:/restaurants-list";
-//
-//        } catch (AuthenticationException e) {
-//            model.addAttribute("error", "Invalid username or password");
-//            return "login";
-//        }
-//    }
+
 }

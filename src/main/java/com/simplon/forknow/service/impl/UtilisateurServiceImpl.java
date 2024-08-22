@@ -66,11 +66,10 @@ public class UtilisateurServiceImpl implements UtilisateurService {
         }
 
         Object principal = authentication.getPrincipal();
-        if (!(principal instanceof UserDetails)){
+        if (!(principal instanceof UserDetails userDetails)){
             return Optional.empty();
         }
 
-        UserDetails userDetails = (UserDetails) principal;
         return utilisateurRepository.findUtilisateurByUsername(userDetails.getUsername());
     }
 }

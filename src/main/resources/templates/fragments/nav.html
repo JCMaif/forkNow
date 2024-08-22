@@ -1,3 +1,18 @@
 <nav th:fragment="layout">
-    <a href="/login">Login/Register</a>
+    <div class="nav-container">
+
+        <!-- Afficher le lien vers la connexion seulement si l'utilisateur n'est pas connecté -->
+        <th:block th:if="${currentUser == null}">
+            <a href="/login">Login</a>
+            <a href="/signup">Sign Up</a>
+        </th:block>
+
+        <!-- Afficher le nom de l'utilisateur lorsque connecté -->
+        <th:block th:if="${currentUser != null}">
+            <span th:text="|Bonjour ${currentUser.display_name != null ? currentUser.display_name : currentUser.username}|">Bonjour username</span>
+            <form name="logoutForm" th:action="@{/logout}" method="post">
+                <input type="submit" value="Se déconnecter" />
+            </form>
+        </th:block>
+    </div>
 </nav>

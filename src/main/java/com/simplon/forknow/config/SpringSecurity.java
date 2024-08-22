@@ -46,6 +46,7 @@ public class SpringSecurity {
                         .requestMatchers("/").permitAll()
                         .requestMatchers("/login").permitAll()
                         .requestMatchers("/signup/**").permitAll()
+                        .requestMatchers("/restaurants-list").authenticated()
                         .requestMatchers("/admin").hasRole("ADMIN")
                         .requestMatchers("/css/**", "/favicon.ico", "/img/**").permitAll()
                 )
@@ -56,7 +57,10 @@ public class SpringSecurity {
                         .permitAll()
                 )
                 .logout(logout -> logout
-                        .logoutSuccessUrl("/login?success=loggedOut")
+//                        .invalidateHttpSession(true)
+//                        .deleteCookies("JSESSIONID")
+//                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/")
                         .permitAll()
                 )
                 .build();
