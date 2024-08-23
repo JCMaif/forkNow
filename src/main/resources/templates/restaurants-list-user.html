@@ -1,0 +1,59 @@
+<th:block th:replace="~{ base :: layout('Your Restaurants', ~{::content}, ~{::link}) }">
+    <link rel="stylesheet" th:href="@{/css/styles-restaurant.css}" href="../static/css/styles-restaurant.css" th:fragment="link" />
+
+    <section th:fragment="content">
+        <div class="container">
+            <h1>Your Restaurants</h1>
+
+            <!-- SHOP_OWNER: Button to create a new restaurant -->
+            <div th:if="${currentUser.role.name() == 'SHOP_OWNER'}">
+                <a href="/restaurants-new" class="create-button">Create New Restaurant</a>
+            </div>
+
+            <div class="restaurant-grid">
+                <!-- Iterate over restaurants -->
+                <div class="restaurant-card" th:each="restaurant : ${restaurants}">
+                    <img th:src="@{/img/{image}(image=${restaurant.imageName})}" alt="Restaurant Image" class="restaurant-image">
+                    <div class="restaurant-info">
+                        <h2 class="restaurant-name" th:text="${restaurant.name}">Restaurant Name</h2>
+                            <p th:each="cuisine : ${restaurant.cuisines}" th:text="${cuisine.type}">Cuisine Type</p>
+                        </div>
+                        <div class="restaurant-rating">
+                            <span class="star">★★★★☆</span>
+                            <span>4.5 (200+ reviews)</span>
+                        </div>
+
+<!--                        <div class="restaurant-rating">-->
+<!--                            <span class="star">★★★★☆</span>-->
+<!--                            <span th:text="${restaurant.rating} + ' (' + restaurant.reviews + ' reviews)'">Rating</span>-->
+<!--                        </div>-->
+                        <a href="#" class="order-button">Order Now</a>
+
+
+                    <div th:if="${currentUser.role.name() == 'CUSTOMER'}">
+                        <button th:if="${!currentUser.restaurants.contains(restaurant)}"
+                                th:onclick="|window.location.href='/restaurants/add/' + ${restaurant.id}|"
+                                class="action-button">Add to My List</button>
+                        <button th:if="${currentUser.restaurants.contains(restaurant)}"
+                                th:onclick="|window.location.href='/restaurants/remove/' + ${restaurant.id}|"
+                                class="action-button">Remove from My List</button>
+                    </div>
+
+
+
+                    <div th:if="${currentUser.role.name() == 'SHOP_EMPLOYEE' || currentUser.role.name() == 'SHOP_OWNER'}">
+                            <a th:href="@{'/restaurants/edit/' + ${restaurant.id}}" class="edit-button">Edit</a>
+                        </div>
+
+
+                        <div th:if="${currentUser.role.name() == 'SHOP_OWNER' || currentUser.role.name() == 'ADMIN'}">
+                            <a th:href="@{'/restaurants/delete/' + ${restaurant.id}}" class="delete-button">Delete</a>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+</th:block>

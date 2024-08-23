@@ -13,4 +13,7 @@ public interface RestaurantService {
 
     public List<Restaurant> getAllRestaurants();
     public Optional<Restaurant> findRestaurantByName(String name);
+
+    Optional<Restaurant> findRestaurantById(Long restaurantId);
+
 }

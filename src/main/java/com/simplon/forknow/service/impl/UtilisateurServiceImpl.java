@@ -2,6 +2,7 @@ package com.simplon.forknow.service.impl;
 
 import com.simplon.forknow.dto.LoginDto;
 import com.simplon.forknow.dto.SignupDto;
+import com.simplon.forknow.model.Restaurant;
 import com.simplon.forknow.model.Utilisateur;
 import com.simplon.forknow.model.UtilisateurRole;
 import com.simplon.forknow.repository.UtilisateurRepository;
@@ -13,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -56,6 +58,11 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     }
 
     @Override
+    public Optional<Utilisateur> findById(Long id) {
+        return utilisateurRepository.findById(id);
+    }
+
+    @Override
     public Optional<Utilisateur> findByEmail(String email) {
         return utilisateurRepository.findUtilisateurByEmail(email);
     }
@@ -72,5 +79,16 @@ public class UtilisateurServiceImpl implements UtilisateurService {
         }
 
         return utilisateurRepository.findUtilisateurByUsername(userDetails.getUsername());
+    }
+
+    @Override
+    public void addRestaurantToUser(Utilisateur utilisateur, Restaurant restaurant) {
+        utilisateur.getRestaurants().add(restaurant);
+        utilisateurRepository.save(utilisateur);
+    }
+
+    @Override
+    public List<Restaurant> getRestaurantsByUser(Utilisateur utilisateur) {
+        return utilisateur.getRestaurants();
     }
 }

@@ -36,3 +36,11 @@ $ ./gradlew bootRun
 - Profil Administrateur :
   - username : Admin
   - password : admin
+
+- Profil Propriétaire de restaurant :
+  - username : Patron
+  - password : patron
+
+- Profil Employé de restaurant :
+  - username : Employe
+  - password : employe

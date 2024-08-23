@@ -12,9 +12,13 @@ public class PasswordGenerator {
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String customerPassword = passwordEncoder.encode("customer");
         String adminPassword = passwordEncoder.encode("admin");
+        String patronPassword = passwordEncoder.encode("patron");
+        String employePassword = passwordEncoder.encode("employe");
 
         System.out.println("Customer password : " + customerPassword);
         System.out.println("Admin password : " + adminPassword);
+        System.out.println("Patron password : " + patronPassword);
+        System.out.println("Employe password : " + employePassword);
 
     }
 }

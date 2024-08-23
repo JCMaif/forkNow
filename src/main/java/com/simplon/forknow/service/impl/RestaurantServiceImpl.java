@@ -25,6 +25,7 @@ public class RestaurantServiceImpl implements RestaurantService {
     public void saveRestaurant(RestaurantDto restaurant, List<Cuisine> cuisines) {
         Restaurant restauEntity = Restaurant.builder()
                 .name(restaurant.getName())
+                .imageName(restaurant.getImageName())
                 .cuisines(cuisines)
                 .build();
         restaurantRepository.save(restauEntity);
@@ -38,5 +39,10 @@ public class RestaurantServiceImpl implements RestaurantService {
     @Override
     public Optional<Restaurant> findRestaurantByName(String name) {
         return restaurantRepository.findByName(name);
+    }
+
+    @Override
+    public Optional<Restaurant> findRestaurantById(Long restaurantId) {
+        return restaurantRepository.findById(restaurantId);
     }
 }

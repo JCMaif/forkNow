@@ -14,5 +14,7 @@ public class RestaurantDto {
     @NotEmpty(message = "l'enseigne doit être renseignée")
     private String name;
 
+    private String imageName;
+
     private List<String> cuisines;
 }

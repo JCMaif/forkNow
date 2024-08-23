@@ -5,6 +5,7 @@ import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "utilisateur")
@@ -33,5 +34,14 @@ public class Utilisateur {
     private Date creation_date;
 
     private UtilisateurRole role;
+
+
+    @ManyToMany
+    @JoinTable(
+            name = "utilisateur_restaurant",
+            joinColumns = @JoinColumn(name = "utilisateur_id"),
+            inverseJoinColumns = @JoinColumn(name = "restaurant_id")
+    )
+    private List<Restaurant> restaurants;
 
 }

@@ -18,8 +18,11 @@ public class Restaurant {
     private Long id;
 
     private String name;
+    private String imageName;
 
-    // Définition de la relation many-to-many
+    @ManyToMany(mappedBy = "restaurants")
+    private List<Utilisateur> utilisateurs;
+
     @ManyToMany
     @JoinTable(
             name = "restaurant_cuisine",

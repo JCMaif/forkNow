@@ -10,6 +10,7 @@
         <!-- Afficher le nom de l'utilisateur lorsque connecté -->
         <th:block th:if="${currentUser != null}">
             <span th:text="|Bonjour ${currentUser.display_name != null ? currentUser.display_name : currentUser.username}|">Bonjour username</span>
+            <a th:href="@{/restaurants/list/{id}(id=${currentUser.id})}">Mes restaurants</a>
             <form name="logoutForm" th:action="@{/logout}" method="post">
                 <input type="submit" value="Se déconnecter" />
             </form>
