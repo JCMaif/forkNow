@@ -48,10 +48,10 @@ public class SpringSecurity {
         return http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/", "/login", "/signup/**", "/css/**", "/img/favicon.ico", "/img/**").permitAll()
-                        .requestMatchers("/restaurants-list", "/cuisines-list", "/restaurants/add", "/restaurants/remove", "/restaurants-list/**", "/restaurants/list/**", "/restaurants-list-user")
+                        .requestMatchers("/restaurants-list", "/cuisines-list", "/restaurants/add/**", "/restaurants/remove/**", "/restaurants-list/**", "/restaurants/list/**", "/restaurants-list-user")
                         .authenticated()
                         .requestMatchers("/restaurants/edit").hasAnyRole("ADMIN", "SHOP_OWNER", "SHOP_EMPLOYEE")
-                        .requestMatchers("/restaurants-new", "/restaurants/delete").hasAnyRole("ADMIN", "SHOP_OWNER")
+                        .requestMatchers("/restaurants/create", "/restaurants/delete").hasAnyRole("ADMIN", "SHOP_OWNER")
                         .requestMatchers("/admin").hasRole("ADMIN")
                 )
                 .formLogin(login -> login

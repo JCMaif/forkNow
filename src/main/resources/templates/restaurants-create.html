@@ -1,0 +1,27 @@
+<!-- src/main/resources/templates/login.html -->
+<th:block th:replace="~{ base :: layout('Creation Resto', ~{::content}, ~{::link}) }">
+    <link rel="stylesheet" th:href="@{/css/styles.css}" href="../static/css/styles.css" th:fragment="link" />
+
+    <section th:fragment="content">
+        <div class="create-container">
+            <h1>Nouveau Restaurant</h1>
+            <form th:action="@{/restaurants/create}" action="#" th:object="${restaurant}" method="post">
+                <label for="name">Name:</label>
+                <input type="text" id="name" th:field="*{name}" required>
+                <br>
+
+                <label for="imageName">Image Name:</label>
+                <input type="text" id="imageName" th:field="*{imageName}">
+                <br>
+
+                <label for="cuisines">Cuisines:</label>
+                <select id="cuisines" th:field="*{cuisines}" multiple>
+                    <option th:each="cuisine : ${cuisines}" th:value="${cuisine.id}" th:text="${cuisine.type}"></option>
+                </select>
+                <br>
+
+                <button type="submit">Create Restaurant</button>
+            </form>
+        </div>
+    </section>
+</th:block>

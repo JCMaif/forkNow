@@ -1,5 +1,7 @@
 package com.simplon.forknow.controller;
 
+import com.simplon.forknow.dto.RestaurantDto;
+import com.simplon.forknow.model.Cuisine;
 import com.simplon.forknow.model.Restaurant;
 import com.simplon.forknow.model.Utilisateur;
 import com.simplon.forknow.service.CuisineService;
@@ -10,13 +12,10 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 public class RestaurantController {
@@ -61,14 +60,79 @@ public class RestaurantController {
     }
 
 
-    @PostMapping("/add")
-    public String addRestaurantToUser(@RequestParam Long restaurantId, Authentication authentication) {
+    @GetMapping("/restaurants/add")
+    public String addRestaurantToUser(@RequestParam Long restaurantId, Authentication authentication, Model model) {
         Optional<Utilisateur> utilisateur = utilisateurService.from(authentication);
         Optional<Restaurant> restaurant = restaurantService.findRestaurantById(restaurantId);
 
         if (utilisateur.isPresent() && restaurant.isPresent()) {
             utilisateurService.addRestaurantToUser(utilisateur.get(), restaurant.get());
+        } else {
+            model.addAttribute("error", "Unable to add restaurant.");
         }
-        return "redirect:/restaurants/add";
+
+        return "redirect:/restaurants/list/" + utilisateur.get().getId();
     }
+
+    @GetMapping("/restaurants/remove")
+    public String removeRestaurantFromUser(@RequestParam Long restaurantId, Authentication authentication, Model model) {
+        Optional<Utilisateur> utilisateur = utilisateurService.from(authentication);
+        Optional<Restaurant> restaurant = restaurantService.findRestaurantById(restaurantId);
+
+        if (utilisateur.isPresent() && restaurant.isPresent()) {
+            utilisateurService.removeRestaurantFromUser(utilisateur.get(), restaurant.get());
+        } else {
+            model.addAttribute("error", "Unable to remove restaurant.");
+        }
+
+        return "redirect:/restaurants/list/" + utilisateur.get().getId();
+    }
+
+    @GetMapping("/restaurants/create")
+    public String createRestaurantForm(Model model){
+        Restaurant restaurant = new Restaurant();
+        List<Cuisine> cuisines = cuisineService.findAllCuisines();
+        model.addAttribute("restaurant", restaurant);
+        model.addAttribute("cuisines", cuisines);
+        return "restaurants-create";
+    }
+
+    @PostMapping("/restaurants/create")
+    public String createRestaurant(@ModelAttribute RestaurantDto restaurantDto, Authentication authentication, Model model){
+        Optional<Utilisateur> utilisateur = utilisateurService.from(authentication);
+        if (utilisateur.isPresent()) {
+
+            List<Cuisine> selectedCuisines = restaurantDto.getCuisines()
+                    .stream()
+                    .map(cuisineId -> cuisineService.findById(cuisineId).orElse(null))
+                    .filter(Objects::nonNull)
+                    .toList();
+
+            Restaurant restoEntity = Restaurant.builder()
+                            .name(restaurantDto.getName())
+                            .imageName(restaurantDto.getImageName())
+                            .cuisines(selectedCuisines)
+                            .build();
+
+            restaurantService.saveRestaurant(restoEntity);
+            utilisateurService.addRestaurantToUser(utilisateur.get(), restoEntity);
+            return "redirect:/restaurants/list/" + utilisateur.get().getId();
+        } else {
+            model.addAttribute("error", "Unable to create restaurant.");
+            return "restaurants-create";
+        }
+
+    }
+
+    @DeleteMapping("/restaurants/delete")
+    public String deleteRestaurant(@ModelAttribute Long restaurantId, Authentication authentication, Model model){
+        Optional<Utilisateur> utilisateur = utilisateurService.from(authentication);
+        Optional<Restaurant> restaurant = restaurantService.findRestaurantById(restaurantId);
+
+        if(utilisateur.isPresent() && restaurant.isPresent()){
+            restaurantService.deleteRestaurant(restaurant.get().getId());
+        }
+        return "redirect:/restaurants/list/" + utilisateur.get().getId();
+    }
+
 }

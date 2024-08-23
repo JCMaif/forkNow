@@ -5,9 +5,8 @@
         <div class="container">
             <h1>Your Restaurants</h1>
 
-            <!-- SHOP_OWNER: Button to create a new restaurant -->
             <div th:if="${currentUser.role.name() == 'SHOP_OWNER'}">
-                <a href="/restaurants-new" class="create-button">Create New Restaurant</a>
+                <a href="/restaurants/create" class="create-button">Create New Restaurant</a>
             </div>
 
             <div class="restaurant-grid">
@@ -31,15 +30,12 @@
 
 
                     <div th:if="${currentUser.role.name() == 'CUSTOMER'}">
-                        <button th:if="${!currentUser.restaurants.contains(restaurant)}"
-                                th:onclick="|window.location.href='/restaurants/add/' + ${restaurant.id}|"
-                                class="action-button">Add to My List</button>
+
                         <button th:if="${currentUser.restaurants.contains(restaurant)}"
-                                th:onclick="|window.location.href='/restaurants/remove/' + ${restaurant.id}|"
+                                th:onclick="|window.location.href='/restaurants/remove?restaurantId=' + ${restaurant.id}|"
                                 class="action-button">Remove from My List</button>
+
                     </div>
-
-
 
                     <div th:if="${currentUser.role.name() == 'SHOP_EMPLOYEE' || currentUser.role.name() == 'SHOP_OWNER'}">
                             <a th:href="@{'/restaurants/edit/' + ${restaurant.id}}" class="edit-button">Edit</a>
@@ -47,7 +43,7 @@
 
 
                         <div th:if="${currentUser.role.name() == 'SHOP_OWNER' || currentUser.role.name() == 'ADMIN'}">
-                            <a th:href="@{'/restaurants/delete/' + ${restaurant.id}}" class="delete-button">Delete</a>
+                            <a th:href="@{'/restaurants/delete?restaurantId=' + ${restaurant.id}}" class="delete-button">Delete</a>
                         </div>
                     </div>
                 </div>

@@ -11,4 +11,8 @@ public interface CuisineService {
     public Optional<Cuisine> findCuisineByType(String type);
 
     public List<Cuisine> findAllCuisines();
+
+    public Optional<Cuisine> findById(Long id);
+
+
 }

@@ -22,8 +22,9 @@
                     <!--                            <span th:text="${restaurant.rating} + ' (' + restaurant.reviews + ' reviews)'">Rating</span>-->
                     <!--                        </div>-->
                     <button th:if="${!currentUser.restaurants.contains(restaurant)}"
-                            th:onclick="|window.location.href='/restaurants/add/' + ${restaurant.id}|"
+                            th:onclick="|window.location.href='/restaurants/add?restaurantId=' + ${restaurant.id}|"
                             class="action-button">Add to My List</button>
+
                 </div>
         </div>
     </section>

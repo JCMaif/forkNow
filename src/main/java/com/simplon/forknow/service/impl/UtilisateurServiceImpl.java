@@ -91,4 +91,13 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     public List<Restaurant> getRestaurantsByUser(Utilisateur utilisateur) {
         return utilisateur.getRestaurants();
     }
+
+    @Override
+    public void removeRestaurantFromUser(Utilisateur utilisateur, Restaurant restaurant) {
+        if (utilisateur == null || restaurant == null) {
+            throw new IllegalArgumentException("Utilisateur and Restaurant cannot be null");
+        }
+        utilisateur.getRestaurants().remove(restaurant);
+        utilisateurRepository.save(utilisateur);
+    }
 }

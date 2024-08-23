@@ -1,5 +1,6 @@
 package com.simplon.forknow.dto;
 
+import com.simplon.forknow.model.Cuisine;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 
@@ -16,5 +17,5 @@ public class RestaurantDto {
 
     private String imageName;
 
-    private List<String> cuisines;
+    private List<Long> cuisines;
 }

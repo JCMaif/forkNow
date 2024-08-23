@@ -33,4 +33,9 @@ public class CuisineServiceImpl implements CuisineService {
     public List<Cuisine> findAllCuisines() {
         return cuisineRepository.findAll();
     }
+
+    @Override
+    public Optional<Cuisine> findById(Long id){
+        return cuisineRepository.findById(id);
+    }
 }

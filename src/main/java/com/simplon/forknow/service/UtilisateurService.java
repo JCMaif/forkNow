@@ -23,4 +23,6 @@ public interface UtilisateurService {
     void addRestaurantToUser(Utilisateur utilisateur, Restaurant restaurant);
 
     List<Restaurant> getRestaurantsByUser(Utilisateur utilisateur);
+
+    void removeRestaurantFromUser(Utilisateur utilisateur, Restaurant restaurant);
 }
